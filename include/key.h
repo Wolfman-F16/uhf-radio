@@ -56,13 +56,13 @@ void readChannel(void);
 static inline void switchToNextKeyRow() {
   currentKeyRow++;
   if (currentKeyRow > COMMON_WIRE_15) {
-    //reset to zero
+                                    //reset to zero
     currentKeyRow = COMMON_WIRE_00;
   }
                                     // pull current row low
   MULTIPLEXPORT &= 0xF0;            // erase lower nibble (key rows)
   MULTIPLEXPORT |= currentKeyRow;   // only works because pins 0 to 3 are used
-                              // and upper nibble is not changed by operation
+                                    // and upper nibble is not changed by operation
 }
 
 /****************************     ISR FUNCTIONS       ************************/

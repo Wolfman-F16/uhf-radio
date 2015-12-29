@@ -36,8 +36,8 @@
 #define TXC0          TXC
 #define UDR0          UDR
 
-#define UBRR_RESULT		(F_CPU / (UART_BAUD_RATE * 16L) -1)
-#define REAL_BAUD_RES (F_CPU / (16 * (UBRR_RESULT + 1)))
+#define UBRR_RESULT     (F_CPU / (UART_BAUD_RATE * 16L) -1)
+#define REAL_BAUD_RES   (F_CPU / (16 * (UBRR_RESULT + 1)))
 
 /****************************   STRUCTURES      *******************************/
 typedef struct {

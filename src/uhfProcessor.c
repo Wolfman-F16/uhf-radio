@@ -252,7 +252,7 @@ void setToneTone() {
         memcpy(uhfFMT.ch[MAX_CHANNELS - radio.channel], &radio.frequency,
             FREQ_ARRAY_SIZE);
         eeprom_write_block(eeFmtNets[MAX_CHANNELS - radio.channel],
-            &radio.frequency, FREQ_ARRAY_SIZE);
+                           &radio.frequency, FREQ_ARRAY_SIZE);
         DBG_WARN_P(eepromMsg);
         playTone(BEEP);
       }
@@ -301,7 +301,8 @@ void setLoad() {
     }
   } else {
     if (uhfOpMode == VEROP && uhfKeyState.FUSEL == FS_PRESET) {
-      eeprom_write_block(&(radio.frequency[0]),
+      eeprom_write_block(
+          &(radio.frequency[0]),
           (uint8_t*) &(eePresetFrequencies[radio.channel - 1][0]),
           FREQ_ARRAY_SIZE);
       DBG_WARN_P(eepromMsg);
@@ -321,12 +322,13 @@ void setStatus() {
     if (radio.frequency[0] == 'A') {
       if (radio.channel > 4) {
         memcpy(&(radio.frequency[0]),
-            &(uhfFMT.ch[MAX_CHANNELS - radio.channel][0]), FREQ_ARRAY_SIZE);
+               &(uhfFMT.ch[MAX_CHANNELS - radio.channel][0]),
+               FREQ_ARRAY_SIZE);
       }
     } else {
       eeprom_read_block(&(radio.frequency[0]),
-          &(eePresetFrequencies[radio.channel - 1][0]),
-          FREQ_ARRAY_SIZE);
+                        &(eePresetFrequencies[radio.channel - 1][0]),
+                        FREQ_ARRAY_SIZE);
     }
   }
   if (radio.channel == 20) {
@@ -516,7 +518,8 @@ void goActive() {
   netNumber = ((radio.frequency[2] - 0x30) * 10) + (radio.frequency[3] - 0x30);
   // check for training or combat mode net
   eeprom_read_block(&(commonNet[0]),
-      &(eePresetFrequencies[MAX_CHANNELS - 1][0]), FREQ_ARRAY_SIZE);
+                    &(eePresetFrequencies[MAX_CHANNELS - 1][0]),
+                    FREQ_ARRAY_SIZE);
   match = memcmp(&(commonNet[0]), "3000", 4);
   if (match) {
     // combat mode

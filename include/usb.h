@@ -9,8 +9,8 @@
  *
  * Features intended for USB:
  * - Interface with Teamspeak. Frequency and Common Net as ways to separate communication.
- * 	 Eventually Teamspeak channel (frequency) hopping.
- * - Interface with Falcon 4.2 (Falcon 4.0, Falcon 4.1 Allied Force, Falcon BMS 4.33)
+ *   Eventually Teamspeak channel (frequency) hopping.
+ * - Interface with Falcon 4.2 (Falcon 4.0, Falcon 4.1 Allied Force, Falcon 4.2 OpenFalcon)
  *   Submit channel, frequency, volume and button/switch states.
  */
 

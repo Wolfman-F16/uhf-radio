@@ -23,7 +23,7 @@ typedef enum {
 
 typedef enum {
   FREQ_1666Hz = 0x0145,     // is a 1667 Hz frequency
-  FREQ_1KHZ = 0x0290,		// is a 1020 Hz frequency
+  FREQ_1KHZ = 0x0290,       // is a 1020 Hz frequency
   FREQ_500HZ = 0x0530
 
 } freq_e;
@@ -39,7 +39,7 @@ void setT2Delay(time_e);
  * Enables PWM output OCR1A.
  */
 static inline void enablePWM1A() {
-  TCCR1A |= (1 << COM1A0);	            // toggle PWM pin OCR1A
+  TCCR1A |= (1 << COM1A0);  // toggle PWM pin OCR1A
 }
 
 /*
@@ -57,7 +57,7 @@ static inline void disablePWM1A() {
  TIMSK: NA|NA|NA|NA|NA|NA|OCIE0|TOIE0
  */
 static inline void initTimer0() {
-  TCCR0 = (1 << CS01);	//| 1 << CS00); // divide by 64
+  TCCR0 = (1 << CS01);  //| 1 << CS00); // divide by 64
   TIMSK |= (1 << TOIE0);                // enable timer interrupt
 }
 

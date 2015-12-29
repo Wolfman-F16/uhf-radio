@@ -64,7 +64,7 @@ void sendUartByte(uint8_t byte) {
   // next lines necessary when using power save sleep modes
   while( !(UCSR0A & (1 << TXC0)));
   UCSR0A |= (1 << TXC0);
-  while( !(UCSR0A & (1 << UDRE0)) );    // wait till byte is out of buffer
+  while( !(UCSR0A & (1 << UDRE0)) );// wait till byte is out of buffer
 #endif
 }
 
@@ -194,7 +194,7 @@ int checkBaudError() {
 #endif
 
   int16_t BAUD_ERROR = ((REAL_BAUD_RES * 1000) / UART_BAUD_RATE - 1000);
-                                    // max. +/-10 per mill error
+  // max. +/-10 per mill error
   if ((BAUD_ERROR > 20) || (BAUD_ERROR < -20)) {
     return -1;                      // error magic number
   }

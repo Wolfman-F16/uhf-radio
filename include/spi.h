@@ -14,7 +14,7 @@
 #include <stdint.h>
 
 /****************************   DEFINITIONS         **************************/
-#define _SPI_EN_		1
+#define _SPI_EN_        1
 #define _MASTER_SPI_    1
 #define _FAST_SPI_      0
 

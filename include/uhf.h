@@ -67,7 +67,7 @@
 
 #define KEY_MASK        ~ALL_KEYS               // key mask must be inverted#define KEY_ADD_MASK    ~(1<<KEY3 | 1<<KEY4)
 #define KEY_ADD_ROW     COMMON_WIRE_05
-#define MASK_TEST       0b10000000              // masks test button#define MASK_SQUELCH	0b10000000              // masks squelch switch#define MASK_STATUS     0b00010000              // masks status button#define MASK_UHF_IO		0b10000000
+#define MASK_TEST       0b10000000              // masks test button#define MASK_SQUELCH    0b10000000              // masks squelch switch#define MASK_STATUS     0b00010000              // masks status button#define MASK_UHF_IO     0b10000000
 #define MASK_BATTERY    0b00000010
 #define MASK_BACKUP     0b00000001
 
@@ -91,7 +91,7 @@
 #define MASK_CH_18      0b00110110
 #define MASK_CH_19      0b00110100
 #define MASK_CH_20      0b00111100
-#define MASK_CHANNEL	(MASK_CH_20 | MASK_CH_01)
+#define MASK_CHANNEL    (MASK_CH_20 | MASK_CH_01)
 
 #define MAX_CHANNELS    20
 #define CHAN_ARRAY_SIZE 1
@@ -100,9 +100,9 @@
 #define  SPI_SOF        0x1A
 #define  SPI_EOF        0xA5
 
-#define MAX_MWOD 	6
-#define MAX_FMT 	16
-#define MAX_DOM 	2
+#define MAX_MWOD    6
+#define MAX_FMT     16
+#define MAX_DOM     2
 
 #define eeUhfState eePresetFrequencies[MAX_CHANNELS][FREQ_ARRAY_SIZE]
 #define eeMnlFreq  eePresetFrequencies[MAX_CHANNELS]
@@ -247,7 +247,7 @@ uint8_t* getFrequencyString(void);
 
 /****************************   Inline Functions      *************************/
 static inline void isrTimer1() {
-                                        // not used during audio output
+  // not used during audio output
   TCCR1B = 0;
   uhfControl.test = FALSE;
   uhfControl.resend = TRUE;

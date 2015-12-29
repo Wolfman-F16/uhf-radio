@@ -14,10 +14,10 @@
 #define DEBUG_LEVEL 1
 
 #if DEBUG_LEVEL > 0
-#   define  DBG(data)       debug(data)
-#   define  DBG_WARN(data, len) sendUartString_n((uint8_t*)data, len)
-#   define  DBG_DELAY_8BIT(value) for(;value > 0; value--){ asm("nop"); }
-#   define  DBG_WARN_P(data)     sendUartString_P((uint8_t*)data)
+#   define  DBG(data)               debug(data)
+#   define  DBG_WARN(data, len)     sendUartString_n((uint8_t*)data, len)
+#   define  DBG_DELAY_8BIT(value)   for(;value > 0; value--){ asm("nop"); }
+#   define  DBG_WARN_P(data)        sendUartString_P((uint8_t*)data)
 
 extern const uint8_t s_baud_error[];
 #else

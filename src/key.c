@@ -1,7 +1,7 @@
 /*
  * key.c
  *
- *	Based on work of Peter Dannegger
+ *  Based on work of Peter Dannegger
  *
  *  Created on: 09.10.2009
  *      Author: Wolfgang Engelhard
@@ -49,7 +49,7 @@ uint8_t get_key_press(uint8_t key_mask) {
   cli();                                    // read and clear atomic !
   key_mask &= key_press[currentKeyRow];     // read key(s)
   key_press[currentKeyRow] ^= key_mask;     // clear key(s) with XOR operation
-                                // TEST, Battery and Backup are push&hold keys
+  // TEST, Battery and Backup are push&hold keys
   if ((key_mask & MASK_TEST) && (currentKeyRow == COMMON_WIRE_05)) {
     key_press[currentKeyRow] |= (key_mask & MASK_TEST);
   }
@@ -141,7 +141,7 @@ void readKeys() {
   static uint8_t rpt[NR_OF_KEYROWS];
   uint8_t temp;
 
-  // apply key mask to input
+                                            // apply key mask to input
   if (currentKeyRow == COMMON_WIRE_15) {
     temp = KEY_MASK | KEY_ADD_PIN;
   } else {
@@ -149,19 +149,19 @@ void readKeys() {
   }                                         // inversion in next line
 
   temp = key_state[currentKeyRow] ^ temp;   // key changed ?
-  // reset or count ct0
+                                            // reset or count ct0
   ct0[currentKeyRow] = ~(ct0[currentKeyRow] & temp);
-  // reset or count ct1
+                                            // reset or count ct1
   ct1[currentKeyRow] = ct0[currentKeyRow] ^ (ct1[currentKeyRow] & temp);
   temp &= ct0[currentKeyRow] & ct1[currentKeyRow]; // count until roll over ?
-  key_state[currentKeyRow] ^= temp;             // then toggle debounced state
+  key_state[currentKeyRow] ^= temp;         // then toggle debounced state
   key_press[currentKeyRow] |= key_state[currentKeyRow] & temp;
-                                                      // 0->1: key press detect
-  if ((key_state[currentKeyRow] & REPEAT_MASK) == 0) {// check repeat function
-    rpt[currentKeyRow] = REPEAT_START;                // start delay
+                                            // 0->1: key press detect
+  if ((key_state[currentKeyRow] & REPEAT_MASK) == 0) {  // check repeat function
+    rpt[currentKeyRow] = REPEAT_START;      // start delay
   }
   if (--rpt[currentKeyRow] == 0) {
-    rpt[currentKeyRow] = REPEAT_NEXT;                   // repeat delay
+    rpt[currentKeyRow] = REPEAT_NEXT;       // repeat delay
     key_rpt[currentKeyRow] |= key_state[currentKeyRow] & REPEAT_MASK;
   }
   switchToNextKeyRow();
@@ -177,13 +177,13 @@ void readAdditionalKeys() {
   uint8_t temp = 0;
 
   if (currentKeyRow == KEY_ADD_ROW) {
-    // apply key mask to input
+                                        // apply key mask to input
     temp = KEY_ADD_MASK | KEY_ADD_PIN;  // key mask OR operation because of
-    // inversion in next line
+                                        // inversion in next line
     temp = key_add_state ^ temp;        // key changed ?
-    // reset or count ct0
+                                        // reset or count ct0
     ct0 = ~(ct0 & temp);
-    // reset or count ct1
+                                        // reset or count ct1
     ct1 = ct0 ^ (ct1 & temp);
     temp &= ct0 & ct1;                  // count until roll over ?
     key_add_state ^= temp;              // then toggle debounced state
@@ -208,13 +208,13 @@ void readChannel() {
   static uint8_t ct1 = 0;
 
   if (currentKeyRow == COMMON_WIRE_10) {
-    // apply key mask to input
+                                        // apply key mask to input
     temp = ~MASK_CHANNEL | KEY_PIN;     // key mask OR operation because of
-    // inversion in next line
+                                        // inversion in next line
     temp = chan_state ^ temp;           // key changed ?
-    // reset or count ct0
+                                        // reset or count ct0
     ct0 = ~(ct0 & temp);
-    // reset or count ct1
+                                        // reset or count ct1
     ct1 = ct0 ^ (ct1 & temp);
     temp &= ct0 & ct1;                  // count until roll over ?
     chan_state ^= temp;                 // then toggle debounced state

@@ -71,7 +71,7 @@ void initIO() {
 
   DDRB = (1 << SPI_MOSI | 1 << SPI_SCK | 1 << SPI_SS);
   DDRB |= 0x0F;             // IC 154 A..D
-  PORTB &= ~(1 << SPI_SS); 	// pull low to indicate presence of control board
+  PORTB &= ~(1 << SPI_SS);  // pull low to indicate presence of control board
 
   // enable internal pull up
   PORTC = 0xFF;
@@ -93,9 +93,9 @@ void initIO() {
  * enable multiplexer IC 74 HC 154
  */
 void initMultiplexer() {
-  // active when low
-  PORTA &= ~(1 << PIN_INHIBIT); 	// set multiplexer device active
-  PORTA &= ~(1 << PIN_OUTPUT_0); 	// output for additional keys set low
+                                    // active when low
+  PORTA &= ~(1 << PIN_INHIBIT);     // set multiplexer device active
+  PORTA &= ~(1 << PIN_OUTPUT_0);    // output for additional keys set low
 }
 
 /**
@@ -110,8 +110,8 @@ int main(void) {
   initIO();
 
   if (initSerial()) {
-    TCCR2 |= (1 << WGM20 | 1 << COM21 | 1 << COM20);             /* error */
-    OCR2 = 16;                                    /* show by LED blinking */
+    TCCR2 |= (1 << WGM20 | 1 << COM21 | 1 << COM20);/* error */
+    OCR2 = 16;                                      /* show by LED blinking */
     for (;;) {
       ;
     }

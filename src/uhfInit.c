@@ -99,7 +99,7 @@ void initVariables() {
   uhfControl.invalidSWOD = 5;
 
   // copy fmt nets from eeprom to sram
-  for(i = 0; i < MAX_FMT; i++) {
+  for (i = 0; i < MAX_FMT; i++) {
     eeprom_read_block(uhfFMT.ch[i], eeFmtNets[i], FREQ_ARRAY_SIZE);
   }
 
@@ -108,7 +108,7 @@ void initVariables() {
 
   uhfOpMode = EEPReadByte(&eeUhfState);
   if (uhfOpMode > 4) {  // magic number 4: max number of uhfOpMode enums
-    EEPWriteByte(&(eeUhfState),VEROP);
+    EEPWriteByte(&(eeUhfState), VEROP);
     DBG_WARN_P(eepromMsg);
   }
 }

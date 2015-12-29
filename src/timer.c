@@ -35,7 +35,7 @@ void setT1Delay(time_e tcntValue) {
 
   TIMSK &= ~(1 << TOIE1 | 1 << OCIE1A);
   TCCR1A = 0x00;                    // normal timer operation
-  TCCR1B = 0x00;					// stop timer
+  TCCR1B = 0x00;                    // stop timer
   /* atomic write */
   sreg = SREG;
   cli();
@@ -73,7 +73,7 @@ void setT2Delay(time_e tcntValue) {
   upperByte = tcntValue >> 8;
 
   TIFR |= (1 << TOV2);
-  TCCR2 = (1 << CS22 | 1 << CS21 | 1 << CS20);	// 1024
+  TCCR2 = (1 << CS22 | 1 << CS21 | 1 << CS20);  // 1024
   TIMSK |= (1 << TOIE2);
 }
 

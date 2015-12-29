@@ -74,16 +74,19 @@ void processInputData(uint8_t keyStatus) {
     case (1 << KEY2):
       radio.frequency[1] = '5';
       uhfControl.resend = TRUE;
+      sendUsbMessage(KEY_2_5);
       DBG_INFO((uint8_t*) radio.frequency, 6);
       break;
     case (1 << KEY3):
       radio.frequency[2] = '5';
       uhfControl.resend = TRUE;
+      sendUsbMessage(KEY_3_5);
       DBG_INFO((uint8_t*) radio.frequency, 6);
       break;
     case (1 << KEY4):
       radio.frequency[3] = '5';
       uhfControl.resend = TRUE;
+      sendUsbMessage(KEY_4_5);
       DBG_INFO((uint8_t*) radio.frequency, 6);
       break;
     default:
@@ -102,16 +105,19 @@ void processInputData(uint8_t keyStatus) {
     case (1 << KEY2):
       radio.frequency[1] = '4';
       uhfControl.resend = TRUE;
+      sendUsbMessage(KEY_2_4);
       DBG_INFO((uint8_t*) radio.frequency, 6);
       break;
     case (1 << KEY3):
       radio.frequency[2] = '4';
       uhfControl.resend = TRUE;
+      sendUsbMessage(KEY_3_4);
       DBG_INFO((uint8_t*) radio.frequency, 6);
       break;
     case (1 << KEY4):
       radio.frequency[3] = '4';
       uhfControl.resend = TRUE;
+      sendUsbMessage(KEY_4_4);
       DBG_INFO((uint8_t*) radio.frequency, 6);
       break;
     default:
@@ -125,28 +131,32 @@ void processInputData(uint8_t keyStatus) {
       radio.frequency[0] = 'A';
       uhfControl.resend = TRUE;
       goActive();
-
+      sendUsbMessage(KEY_1_4);
       DBG_INFO((uint8_t*) radio.frequency, 6);
       break;
     case (1 << KEY2):
       radio.frequency[1] = '3';
       uhfControl.resend = TRUE;
+      sendUsbMessage(KEY_2_3);
       DBG_INFO((uint8_t*) radio.frequency, 6);
       break;
     case (1 << KEY3):
       radio.frequency[2] = '3';
       uhfControl.resend = TRUE;
+      sendUsbMessage(KEY_3_3);
       DBG_INFO((uint8_t*) radio.frequency, 6);
       break;
     case (1 << KEY4):
       radio.frequency[3] = '3';
       uhfControl.resend = TRUE;
+      sendUsbMessage(KEY_4_3);
       DBG_INFO((uint8_t*) radio.frequency, 6);
       break;
     case (1 << KEY5):
       radio.frequency[4] = '7';
       radio.frequency[5] = '5';
       uhfControl.resend = TRUE;
+      sendUsbMessage(KEY_5_75);
       DBG_INFO((uint8_t*) radio.frequency, 6);
       break;
     default:
@@ -159,28 +169,32 @@ void processInputData(uint8_t keyStatus) {
     case (1 << KEY1):
       radio.frequency[0] = '3';
       uhfControl.resend = TRUE;
-
+      sendUsbMessage(KEY_1_3);
       DBG_INFO((uint8_t*) radio.frequency, 6);
       break;
     case (1 << KEY2):
       radio.frequency[1] = '2';
       uhfControl.resend = TRUE;
+      sendUsbMessage(KEY_2_2);
       DBG_INFO((uint8_t*) radio.frequency, 6);
       break;
     case (1 << KEY3):
       radio.frequency[2] = '2';
       uhfControl.resend = TRUE;
+      sendUsbMessage(KEY_3_2);
       DBG_INFO((uint8_t*) radio.frequency, 6);
       break;
     case (1 << KEY4):
       radio.frequency[3] = '2';
       uhfControl.resend = TRUE;
+      sendUsbMessage(KEY_4_2);
       DBG_INFO((uint8_t*) radio.frequency, 6);
       break;
     case (1 << KEY5):
       radio.frequency[4] = '5';
       radio.frequency[5] = '0';
       uhfControl.resend = TRUE;
+      sendUsbMessage(KEY_5_50);
       DBG_INFO((uint8_t*) radio.frequency, 6);
       break;
     case (1 << KEY6):
@@ -201,28 +215,32 @@ void processInputData(uint8_t keyStatus) {
     case (1 << KEY1):
       radio.frequency[0] = '2';
       uhfControl.resend = TRUE;
-
+      sendUsbMessage(KEY_1_2);
       DBG_INFO(radio.frequency, 6);
       break;
     case (1 << KEY2):
       radio.frequency[1] = '1';
       uhfControl.resend = TRUE;
+      sendUsbMessage(KEY_2_1);
       DBG_INFO(radio.frequency, 6);
       break;
     case (1 << KEY3):
       radio.frequency[2] = '1';
       uhfControl.resend = TRUE;
+      sendUsbMessage(KEY_3_1);
       DBG_INFO(radio.frequency, 6);
       break;
     case (1 << KEY4):
       radio.frequency[3] = '1';
       uhfControl.resend = TRUE;
+      sendUsbMessage(KEY_4_1);
       DBG_INFO(radio.frequency, 6);
       break;
     case (1 << KEY5):
       radio.frequency[4] = '2';
       radio.frequency[5] = '5';
       uhfControl.resend = TRUE;
+      sendUsbMessage(KEY_5_25);
       DBG_INFO(radio.frequency, 6);
       break;
     case (1 << KEY6):
@@ -249,22 +267,26 @@ void processInputData(uint8_t keyStatus) {
     case (1 << KEY2):
       radio.frequency[1] = '0';
       uhfControl.resend = TRUE;
+      sendUsbMessage(KEY_2_0);
       DBG_INFO(radio.frequency, 6);
       break;
     case (1 << KEY3):
       radio.frequency[2] = '0';
       uhfControl.resend = TRUE;
+      sendUsbMessage(KEY_3_0);
       DBG_INFO(radio.frequency, 6);
       break;
     case (1 << KEY4):
       radio.frequency[3] = '0';
       uhfControl.resend = TRUE;
+      sendUsbMessage(KEY_4_0);
       DBG_INFO(radio.frequency, 6);
       break;
     case (1 << KEY5):
       radio.frequency[4] = '0';
       radio.frequency[5] = '0';
       uhfControl.resend = TRUE;
+      sendUsbMessage(KEY_5_00);
       DBG_INFO(radio.frequency, 6);
       break;
     case (1 << KEY6):
@@ -299,16 +321,19 @@ void processInputData(uint8_t keyStatus) {
     case (1 << KEY2):
       radio.frequency[1] = '9';
       uhfControl.resend = TRUE;
+      sendUsbMessage(KEY_2_9);
       DBG_INFO((uint8_t*) radio.frequency, 6);
       break;
     case (1 << KEY3):
       radio.frequency[2] = '9';
       uhfControl.resend = TRUE;
+      sendUsbMessage(KEY_3_9);
       DBG_INFO((uint8_t*) radio.frequency, 6);
       break;
     case (1 << KEY4):
       radio.frequency[3] = '9';
       uhfControl.resend = TRUE;
+      sendUsbMessage(KEY_4_9);
       DBG_INFO((uint8_t*) radio.frequency, 6);
       break;
     default:
@@ -326,16 +351,19 @@ void processInputData(uint8_t keyStatus) {
     case (1 << KEY2):
       radio.frequency[1] = '8';
       uhfControl.resend = TRUE;
+      sendUsbMessage(KEY_2_8);
       DBG_INFO((uint8_t*) radio.frequency, 6);
       break;
     case (1 << KEY3):
       radio.frequency[2] = '8';
       uhfControl.resend = TRUE;
+      sendUsbMessage(KEY_3_8);
       DBG_INFO((uint8_t*) radio.frequency, 6);
       break;
     case (1 << KEY4):
       radio.frequency[3] = '8';
       uhfControl.resend = TRUE;
+      sendUsbMessage(KEY_4_8);
       DBG_INFO((uint8_t*) radio.frequency, 6);
       break;
     default:
@@ -353,16 +381,19 @@ void processInputData(uint8_t keyStatus) {
     case (1 << KEY2):
       radio.frequency[1] = '7';
       uhfControl.resend = TRUE;
+      sendUsbMessage(KEY_2_7);
       DBG_INFO((uint8_t*) radio.frequency, 6);
       break;
     case (1 << KEY3):
       radio.frequency[2] = '7';
       uhfControl.resend = TRUE;
+      sendUsbMessage(KEY_3_7);
       DBG_INFO((uint8_t*) radio.frequency, 6);
       break;
     case (1 << KEY4):
       radio.frequency[3] = '7';
       uhfControl.resend = TRUE;
+      sendUsbMessage(KEY_4_7);
       DBG_INFO((uint8_t*) radio.frequency, 6);
       break;
     default:
@@ -380,16 +411,19 @@ void processInputData(uint8_t keyStatus) {
     case (1 << KEY2):
       radio.frequency[1] = '6';
       uhfControl.resend = TRUE;
+      sendUsbMessage(KEY_2_6);
       DBG_INFO((uint8_t*) radio.frequency, 6);
       break;
     case (1 << KEY3):
       radio.frequency[2] = '6';
       uhfControl.resend = TRUE;
+      sendUsbMessage(KEY_3_6);
       DBG_INFO((uint8_t*) radio.frequency, 6);
       break;
     case (1 << KEY4):
       radio.frequency[3] = '6';
       uhfControl.resend = TRUE;
+      sendUsbMessage(KEY_4_6);
       DBG_INFO((uint8_t*) radio.frequency, 6);
       break;
     default:
@@ -412,10 +446,10 @@ void processInputData(uint8_t keyStatus) {
     case (1 << KEY7):
       if (uhfKeyState.OFF == MS_OFF) {
         if (uhfKeyState.MODE != MS_ADF) { /* too many calls of setUhfOn() so */
-          sendUsbMessage(KEY_MAIN);       /* key stroke is separate here     */
-                                          /* instead of within setUhfOn()    */
-          sendUsbMessage(NOT_USED);       /* only one key stroke should be   */
-                                          /* sent, so release here           */
+          sendUsbMessage(KEY_MAIN); /* key stroke is separate here     */
+          /* instead of within setUhfOn()    */
+          sendUsbMessage(NOT_USED); /* only one key stroke should be   */
+          /* sent, so release here           */
         }
         setUhfOn();
         uhfKeyState.OFF = MS_ON;
@@ -548,7 +582,7 @@ void processInputData(uint8_t keyStatus) {
         // timeout running, check for key activity
         if (uhfControl.fmtTimeout) {
           if(dbgOnce) {
-            dbgOnce = FALSE;	// just to avoid repeating dbg display
+            dbgOnce = FALSE;    // just to avoid repeating dbg display
             DBG_WARN("\033[20;40f>fmt timeOUT<",21);
           }
         }
@@ -876,7 +910,7 @@ void forcedReadUhfState() {
       } else {
         DBG_INFO("OFF\t",4);
         uhfKeyState.OFF = MS_OFF;
-        uhfControl.firstRun = FALSE;	// don't want to show test twice
+        uhfControl.firstRun = FALSE;    // don't want to show test twice
       }
       break;
     case (COMMON_WIRE_12):
