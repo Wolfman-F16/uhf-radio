@@ -251,8 +251,9 @@ void setToneTone() {
       if (radio.channel > 4) {
         memcpy(uhfFMT.ch[MAX_CHANNELS - radio.channel], &radio.frequency,
             FREQ_ARRAY_SIZE);
-        eeprom_write_block(eeFmtNets[MAX_CHANNELS - radio.channel],
-                           &radio.frequency, FREQ_ARRAY_SIZE);
+        eeprom_write_block(&(radio.frequency[0]),
+                           (uint8_t*)&(eeFmtNets[MAX_CHANNELS - radio.channel][0]),
+                           FREQ_ARRAY_SIZE);
         DBG_WARN_P(eepromMsg);
         playTone(BEEP);
       }
@@ -301,10 +302,7 @@ void setLoad() {
     }
   } else {
     if (uhfOpMode == VEROP && uhfKeyState.FUSEL == FS_PRESET) {
-      eeprom_write_block(
-          &(radio.frequency[0]),
-          (uint8_t*) &(eePresetFrequencies[radio.channel - 1][0]),
-          FREQ_ARRAY_SIZE);
+      writePresetFreq2eeprom(&radio);
       DBG_WARN_P(eepromMsg);
     }
     // illegal op. ch 20 is reserved for mwod

@@ -7,6 +7,7 @@
  * Copyright: (c) 2011 by Wolfgang Engelhard
  * License: GNU GPL v2 (see License.txt)
  */
+#include <string.h>
 
 #include "usb.h"
 #include "usbconfig.h"
@@ -126,50 +127,21 @@ uchar usbFunctionSetup(uchar data[8]) {
  *  C = Channel
  */
 uint8_t transmitToDevice(usbWord_t value, usbWord_t index) {
-  uint8_t temp = 0;
+  radio_t radioData;
+  uint8_t arrData[3];
 
-  temp = (value.bytes[0] & 0x30) >> 4;    // 1. digit masked
-  if (temp == 1) {
-    temp |= 0x40;
+  arrData[0] = value.bytes[0];
+  arrData[1] = value.bytes[1];
+  arrData[2] = index.bytes[0];
+  radioData = decompressRadioData(arrData);
+
+  if(index.bytes[1] == 0xEE) {
+    /* write to eeprom */
+    writePresetFreq2eeprom(&radioData);
   } else {
-    temp |= ASCII_OFFSET;
+    /* write to display */
+    memcpy(&radio, &radioData, sizeof(radio_t));
+    uhfControl.resend = 1;
   }
-  radio.frequency[0] = temp;              // special handling 'A'
-
-  temp = value.bytes[0] & 0x0F;           // 2.digit
-  radio.frequency[1] = temp | ASCII_OFFSET;
-
-  temp = value.bytes[1] & 0x78;           // 3. digit
-  radio.frequency[2] = (temp >> 3) | ASCII_OFFSET;
-
-  temp = (value.bytes[1] << 1) & 0x0E;
-  temp |= (value.bytes[0] & 0x40) >> 6;   // 4. digit
-  radio.frequency[3] = temp | ASCII_OFFSET;
-
-  temp = (index.bytes[0] & 0x60);
-  switch (temp) {
-  case 0x00:
-    radio.frequency[4] = '0';
-    radio.frequency[5] = '0';
-    break;
-  case 0x20:
-    radio.frequency[4] = '2';
-    radio.frequency[5] = '5';
-    break;
-  case 0x40:
-    radio.frequency[4] = '5';
-    radio.frequency[5] = '0';
-    break;
-  case 0x60:
-    radio.frequency[4] = '7';
-    radio.frequency[5] = '5';
-    break;
-  default:
-    break;
-  }
-
-  radio.channel = index.bytes[0] & 0x1F;
-  uhfControl.resend = 1;
-
   return 4;
 }

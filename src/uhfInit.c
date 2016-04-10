@@ -98,6 +98,10 @@ void initVariables() {
   uhfControl.firstRun = TRUE;
   uhfControl.invalidSWOD = 5;
 
+  if(EEPReadByte(eePresetFrequencies) == 0) {
+    // populate eeprom with default
+  }
+
   // copy fmt nets from eeprom to sram
   for (i = 0; i < MAX_FMT; i++) {
     eeprom_read_block(uhfFMT.ch[i], eeFmtNets[i], FREQ_ARRAY_SIZE);

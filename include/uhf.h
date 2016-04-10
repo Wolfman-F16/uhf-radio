@@ -245,6 +245,10 @@ void forcedReadFreq(void);
 uint8_t* getChannelString(void);
 uint8_t* getFrequencyString(void);
 
+
+radio_t decompressRadioData(uint8_t []);
+uint8_t writePresetFreq2eeprom(radio_t *);
+
 /****************************   Inline Functions      *************************/
 static inline void isrTimer1() {
   // not used during audio output
