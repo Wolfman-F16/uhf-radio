@@ -28,15 +28,15 @@
 uint8_t key_state[NR_OF_KEYROWS];   // debounced and inverted key state:
                                     // bit = 1: key pressed
 uint8_t key_press[NR_OF_KEYROWS];   // key press detect
-uint8_t key_rpt[NR_OF_KEYROWS];     // key long press and repeat
+static uint8_t key_rpt[NR_OF_KEYROWS];     // key long press and repeat
 uint8_t currentKeyRow;              // current key row pulled low
 
-uint8_t key_add_state;
-uint8_t key_add_press;
-uint8_t key_add_rpt;
+static uint8_t key_add_state;
+static uint8_t key_add_press;
+static uint8_t key_add_rpt;
 
-uint8_t channel;
-uint8_t chan_state = 0;
+static uint8_t channel;
+static uint8_t chan_state = 0;
 
 keyState_t keyState;
 

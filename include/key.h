@@ -30,10 +30,7 @@ typedef struct {
 extern uint8_t key_state[];     // debounced and inverted key state:
                                 // bit = 1: key pressed
 extern uint8_t key_press[];     // key press detect
-extern uint8_t key_rpt[];       // key long press and repeat
 extern uint8_t currentKeyRow;
-
-extern uint8_t channel;
 
 extern keyState_t keyState;
 

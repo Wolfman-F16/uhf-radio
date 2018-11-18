@@ -1,5 +1,5 @@
 /*
- * uhf_fus.c
+ * uhfProcessor.c
  *
  *  Created on: 19.04.2011
  *      Author: Wolfgang Engelhard
@@ -38,6 +38,7 @@ const uint8_t testFreq[] PROGMEM = "888888";
 uhf_wod_t uhfMWOD[MAX_MWOD];
 uhf_fmt_t uhfFMT;
 uint8_t currMWodIndex = 0;
+uint8_t channelMemory;
 
 /****************************   FUNCTION DEFINITIONS  ************************/
 /*
@@ -55,21 +56,22 @@ uint8_t* getChannelString() {
     tmpChannel /= 10;
     channelString[0] = '0' + tmpChannel;
   }
-  return &channelString[0];
+  return &(channelString[0]);
 }
 
 /*
  * return readChannel as string
  */
 uint8_t* getFrequencyString() {
-  return &radio.frequency[0];
+  return &(radio.frequency[0]);
 }
 
 void eraseMWOD() {
   uint8_t i = 0;
-  // erase mwod
-  // play a tone?
-  // erase mwod day to invalidate complete mwod set
+  /* erase mwod
+   * play a tone?
+   * erase mwod day to invalidate complete mwod set
+   */
   for (i = 0; i < MAX_MWOD; i++) {
     uhfMWOD[i].ch_14[0] = 0x55;
     uhfMWOD[i].ch_14[1] = 0x55;
@@ -81,8 +83,9 @@ void eraseMWOD() {
  * sets manual state for function selector.
  */
 void setManual() {
-  sendUsbMessage(KEY_MNL); /* not supported by BMS */
+  sendUsbMessage(KEY_MNL);          /* not supported by BMS 4.32 */
   uhfKeyState.FUSEL = FS_MNL;
+  radio.channel = 0;                /* blank channel display */
   forcedReadFreq();
 }
 
@@ -93,6 +96,7 @@ void setPreset() {
   sendUsbMessage(KEY_PRESET);
   uhfKeyState.FUSEL = FS_PRESET;
   readChannel();
+  radio.channel = channelMemory;
 }
 
 /*
@@ -101,8 +105,8 @@ void setPreset() {
 void setGuard() {
   sendUsbMessage(KEY_GUARD);
   uhfKeyState.FUSEL = FS_GUARD;
-
-  // set guard frequency
+  radio.channel = 0;                /* blank channel display */
+                                    /* set guard frequency */
   memcpy_P(radio.frequency, guardFreq, FREQ_ARRAY_SIZE);
 }
 
@@ -148,8 +152,8 @@ void setUhfOn() {
   forcedReadFreq();
   if (uhfKeyState.MODE != MS_ADF) {
     setTest();
-    // disable inputs
-    setT1Delay(ONE_SEC); // 1 second init test
+    /* disable inputs */
+    setT1Delay(ONE_SEC);        /* 1 second init test */
     while (uhfControl.test) {
       ;
     }
@@ -166,8 +170,9 @@ void setToneT() {
 
   if (uhfOpMode == VEROP) {
     if (memcmp_P((uint8_t*) &radio.frequency, toneFreq, FREQ_ARRAY_SIZE) == 0) {
-      // if tone is received play beep
-      // maybe add a random delay? within 10 sec
+      /* if tone is received play beep
+         maybe add a random delay? within 10 sec
+       */
       for (i = 0; i < 0xFF; i++)
         asm("nop");
       playTone(BEEP);
@@ -246,8 +251,8 @@ void setToneTone() {
       eraseMWOD();
       break;
     case FMTCHG:
-      // arc-164.pdf p. 82
-      // check for ch 20 - 5
+      /* arc-164.pdf p. 82 */
+      /* check for ch 20 - 5 */
       if (radio.channel > 4) {
         memcpy(uhfFMT.ch[MAX_CHANNELS - radio.channel], &radio.frequency,
             FREQ_ARRAY_SIZE);
@@ -271,7 +276,7 @@ void setToneTone() {
   }
   if (uhfKeyState.FUSEL == FS_PRESET) {
     if (uhfOpMode == FMTCHG) {
-      // nothing to implement found yet
+      /* nothing to implement found yet */
     }
   }
 }
@@ -282,19 +287,19 @@ void setToneTone() {
 void setLoad() {
   if (memcmp_P(&(radio.frequency[0]), veropFreq, 4) == 0) {
     if (uhfKeyState.FUSEL == FS_PRESET && radio.channel == 20) {
-      // verop */
+      /* verop */
       if (radio.frequency[4] == '0') {
         uhfOpMode = VEROP;
       }
-      // mload
+      /* mload */
       if (radio.frequency[4] == '2') {
         uhfOpMode = MLOAD;
       }
-      // erase
+      /* erase */
       if (radio.frequency[4] == '5') {
         uhfOpMode = ERASE;
       }
-      // fmtchg
+      /* fmtchg */
       if (radio.frequency[4] == '7') {
         uhfOpMode = FMTCHG;
       }
@@ -305,9 +310,10 @@ void setLoad() {
       writePresetFreq2eeprom(&radio);
       DBG_WARN_P(eepromMsg);
     }
-    // illegal op. ch 20 is reserved for mwod
-    // but channel 20 holds training/common net!? Apache SWOD loading states,
-    // you program ch 20 with training net freq 300.0xx
+    /* illegal op. ch 20 is reserved for mwod
+       but channel 20 holds training/common net!? Apache SWOD loading states,
+       you program ch 20 with training net freq 300.0xx
+     */
   }
 }
 
@@ -380,7 +386,7 @@ void display(uhfOpMode_e pMode) {
   sendData(chanString, freqString);
 
   if (pMode != DISP_OFF) {
-    setT1Delay(MAX_TIME); // limit display duration
+    setT1Delay(MAX_TIME); /* limit display duration */
   }
 }
 
@@ -430,8 +436,8 @@ void playTone(tone_e audioType) {
     setT2Delay(ONE_SEC);
     uhfControl.audio = WAVE;
     uhfControl.audioCycle = 3;
-    // have to set in isr of t2 option to repeat this with 0.5 khz
-    // max duration is 5 sec?
+    /* have to set in isr of t2 option to repeat this with 0.5 khz
+       max duration is 5 sec? */
     break;
   case PULSE:
     setT1Pwm(FREQ_1KHZ);
@@ -439,8 +445,8 @@ void playTone(tone_e audioType) {
     setT2Delay(HALF_SEC);
     uhfControl.audio = PULSE;
     uhfControl.audioCycle = 4;
-    // should be one sec and one sec pause for 5 sec total?
-    // p.77 hints, that pulse is beep, beep, beep
+    /* should be one sec and one sec pause for 5 sec total?
+       p.77 hints, that pulse is beep, beep, beep */
     break;
   case TOD:
     setT1Pwm(FREQ_1666Hz);
@@ -497,12 +503,12 @@ void goActive() {
   }
 
   if (!uhfControl.gotTone) {
-    // wod or tod invalid (steady)
+    /* wod or tod invalid (steady) */
     playTone(WARN);
     DBG_WARN("X tone", 6);
     return;
   }
-  // active net ending with 50 or 75 not allowed (Apache HQ IIa)
+  /* active net ending with 50 or 75 not allowed (Apache HQ IIa) */
   if (radio.frequency[4] > '2') {
     playTone(PULSE);
     DBG_WARN("X >.25", 6);
@@ -514,36 +520,36 @@ void goActive() {
     return;
   }
   netNumber = ((radio.frequency[2] - 0x30) * 10) + (radio.frequency[3] - 0x30);
-  // check for training or combat mode net
+  /* check for training or combat mode net */
   eeprom_read_block(&(commonNet[0]),
                     &(eePresetFrequencies[MAX_CHANNELS - 1][0]),
                     FREQ_ARRAY_SIZE);
   match = memcmp(&(commonNet[0]), "3000", 4);
   if (match) {
-    // combat mode
-    // classified ?
+    /* combat mode
+       classified ? */
   } else {
-    // training mode
+    /* training mode */
     if (radio.frequency[4] == '0') {
-      // small range hop (Axx.x00)
+      /* small range hop (Axx.x00) */
       if (netNumber < 5) {
-        // selected net is one of presetChannel 19 to 15 (SWOD).
-        // There is always a frequency for SWOD, but maybe not valid
+        /* selected net is one of presetChannel 19 to 15 (SWOD). */
+        /* There is always a frequency for SWOD, but maybe not valid */
         if (uhfControl.invalidSWOD) {
           playTone(WARN);
           DBG_WARN("X SWOD", 6);
         }
-        // active, no audio
+        /* active, no audio */
         return;
       }
     } else {
-      // fmt net range hop (Axx.x25)
+      /* fmt net range hop (Axx.x25) */
       if (netNumber < 16) {
-        // active, no audio (only permissible, because FMT-NETs are
-        // loaded non-volatile in eeprom)
+        /* active, no audio (only permissible, because FMT-NETs are */
+        /* loaded non-volatile in eeprom) */
         return;
       }
     }
-    playTone(PULSE); // error
+    playTone(PULSE); /* error */
   }
 }

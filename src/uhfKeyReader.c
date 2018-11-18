@@ -23,6 +23,7 @@ uhfOpMode_e uhfOpMode;
 radio_t radio;
 
 extern const uint8_t eepromMsg[];
+extern uint8_t channelMemory;
 /****************************   CONSTANTS             ************************/
 #if DEBUG_LEVEL > 1
 const uint8_t test_pressed[] PROGMEM = "TEST pressed\r\n\0";
@@ -772,7 +773,12 @@ void processChannel() {
 
     uhfControl.resend = TRUE;
   }
-
+  if (radio.channel != 0) { /* backup radio channel */
+    channelMemory = radio.channel;
+  }
+  if ((uhfKeyState.FUSEL == FS_MNL) || (uhfKeyState.FUSEL == FS_GUARD)) {
+    radio.channel = 0; /* blank out channel for non-preset modes */
+  }
 }
 
 void forcedReadFreq() {
