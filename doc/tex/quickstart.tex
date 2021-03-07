@@ -1,0 +1,534 @@
+\documentclass[12pt, a4paper]{report}
+
+\usepackage[top=15mm, bottom=20mm, left=25mm, right=30mm]{geometry}
+\usepackage[english]{babel}
+\usepackage{verbatim}
+\usepackage{lastpage}
+
+\usepackage{longtable}
+\usepackage{fancyhdr}
+\usepackage{graphicx}
+\usepackage{xcolor}
+
+
+\fancypagestyle{plain} {
+\renewcommand{\headrulewidth}{0pt}
+	\fancyhf{}
+	\fancyfoot[l]{
+		\today
+	}
+	\fancyfoot[c]{
+		v 1.2.0
+	}
+	\fancyfoot[r]{
+		\thepage\slash \pageref*{LastPage}
+	}
+}
+
+\usepackage[pdfauthor=Wolfman,pdftitle=UHF Radio,bookmarks]{hyperref}
+
+%----------------------------------------------------------------  BEGIN OF DOCUMENT ---------------------------------------------------------------- 
+\begin{document}
+
+\title{UHF Electronics Quickstart Guide\\\large Electronics for UHF ARC-164 Airborne Radio Panel}
+\author{Wolfgang ''Wolfman'' Engelhard }
+\maketitle
+
+% ---------------------------------------------------------------- history
+\pagestyle {plain}
+
+\section{Revision History}
+\begin{itemize}
+\item[1.0.3]
+Page 5 updated
+\item[1.1.0]
+Pages 4,11,12 updated
+\item[1.2.0]
+Pages 11, 12 updated, minor clarifications in pages 13 to 15. Changed to \LaTeX
+\end{itemize}•
+
+% ---------------------------------------------------------------- disclaimer
+\section{Disclamer}
+This document is for information only. It may not be accurate, nor free of errors. It has been created with the best of my knowledge, but no liability is assumed for any damage caused by using this document or the devices described herein.
+
+% ---------------------------------------------------------------- viperpits
+\section{viperpits.org}
+A lot of information is also available on the viperpits.org forum. If you want to know about the history of this development read the thread
+\href{http://www.viperpits.org/smf/index.php?topic=5082.0}{viperpits.org UHF electronics}
+(free registration required)
+
+% ---------------------------------------------------------------- PARTLIST ---------------------------------------------------------------- 
+\chapter{Partlist}
+\begin{itemize}
+\item[1x]
+UHF Indication Board
+\item[1x]
+UHF Control Board
+\item[1x]
+UHF ARC-164 Panel
+\item[1x]
+5V\slash 1A power supply (an additional 5V\slash1.5A power supply if using backlight!)
+\item[1x]
+10pol flat wire connector cable
+\item[1x]
+2pol wire cable (already mounted)
+\item[1x]
+7-segment LED board
+\item[1x]
+Headphones or high ohm loudspeaker (not shown)
+\end{itemize}•
+
+\begin{figure}[h!tb]
+\includegraphics[width=\textwidth]{images/parts.jpg}
+\caption{Parts}
+\end{figure}
+
+% ---------------------------------------------------------------- Components
+\section{Bill Of Material}
+\framebox[\textwidth]{
+\parbox{0.9\textwidth}{
+Note:\newline I do not endorse buying from mouser, the intention is only to give reference.
+}
+}
+
+\subsection{PCB}
+The eagle\footnote{cadsoft.de} .brd files can be used to generate gerber files if your local PCB manufacturer does not accept eagle files.
+
+% ---------------------------------------------------------------- Indication board partlist
+\subsection{UHF Indication Board}
+\begin{longtable}{ *{5}{| l } | }
+\hline
+\textbf{Article} & \textbf{Value} & \textbf{Type} & \textbf{\#} & \textbf{Mouser order number} \\
+\hline
+\endhead
+ATMega8 & DIL-28 & IC & 1 & 556-ATMEGA8A-PU \\
+Shift Register 595 & DIL-16 & IC & 8 & 511-M74HC595 \\
+Quarz 16 Mhz & HC18U-V & Quarz & 1 & 815-ABL-16-B2 \\
+IC-sockel (opt.) & 16 pol & Sockel & 8 & 517-4816-3000-CP \\
+IC-sockel (opt.) & 28 pol & Sockel & 1 & 517-4828-3004-CP \\
+LED yellow & 1206 & Led & 1 & 696-SML-LX1206YC \\
+2V7 Z-Diode 1,3W & DO-204AL & Diode & 1 & 771-BZX79-C2V7133 \\
+BC141 & TO-39 & Transistor & 1 & 511-BC141-16 \\
+SMCC 10uH &  & Inductivity & 1 & 434-23-100 \\
+100nF & RM5 & Capacitor & 4 & 80-C320C104K5R5CA \\
+10nF & RM2.5 & Capacitor & 2 & 80-C315C103K5R5CA \\
+1nF & RM2.5 & Capacitor & 1 & 80-C315C102K5R5CA \\
+100pF & RM2.5 & Capacitor & 2 & 80-C315C101K5R5CA \\
+22pF  & RM2.5 & Capacitor & 2 & 80-C315C220K5G5CA \\
+150R & 805 & Resistor & 9 & 652-CR0805FX-1500ELF \\
+8k2 & 805 & Resistor & 1 & 652-CR0805FX-8201ELF \\
+180R & 1/4W & Resistor & 1 & 291-180-RC \\
+560R & 1/4W & Resistor & 1 & 291-560-RC \\
+10R & 5W & Resistor & 1 & 284-ACS5SW-10 \\
+Powerplug & AK500/3 & Connector & 1 & 845-34.103 \\
+Pinheader 10pol & 5x2 & Connector & 1 & 517-D2510-6002-AR \\
+Pinheader 3pol & 3 pol & Connector & 1 & 855-M20-9730345 \\
+Pinheader 8pol & 8 pol & Connector & 8 & 855-M20-9730846 \\
+Poti 47k & RM2.54 & Poti & 1 & 652-3296Y-1-473LF \\
+\hline
+\caption {UHF Indication Board}
+\end{longtable}
+
+
+\framebox[\textwidth]{
+\parbox{0.9\textwidth}{
+Note:\par Instead of the Poti you could just as well mount a 3pol pinheader and connect any potentiometer with about the same resistor value.
+}
+}
+
+% ---------------------------------------------------------------- Control board partlist
+\subsection{UHF Control Board RP}
+\begin{longtable}{ *{5}{| l } | }
+\hline
+\textbf{Article} & \textbf{Value} & \textbf{Type} & \textbf{\#} & \textbf{Mouser order number} \\
+\hline
+\endhead
+ATMega8 & DIL-28 & IC & 1 & 556-ATMEGA8A-PU \\
+22pF & RM2.5 & Capacitor & 2 & 80-C315C220K5G5CA \\
+100pF & RM2.5 & Capacitor & 2 & 80-C315C101K5R5CA \\
+10nF & RM2.5 & Capacitor & 2 & 80-C315C103K5R5CA \\
+10nF & RM5 & Capacitor & 1 &  \\
+100nF & RM5 & Capacitor & 2 & 80-C320C104K5R5CA \\
+10uF El.Ca. & RM2.5 & Capacitor & 1 & 647-UST1H100MDD1TE \\
+100uF El.Ca. & RM2.5 & Capacitor & 1 & 647-UVR1V101MED1TA \\
+Audio Jack  & 3.5mm & Connector & 1 & 502-35RAPC4BH3 \\
+Sockets 14pol & 14pol & Connector & 4 &  \\
+Sockets 11pol & 11pol & Connector & 2 &  \\
+Powerplug & A500/2 & Connector & 2 & 845-34.102 \\
+Pinheader 3pol & 3 pol & Connector & 2 & 855-M20-9730345 \\
+USB -B &  & Connector & 1 & 649-61729-0010BLF \\
+Pinheader 6pol & 2x3 & Connector & 1 & 517-D2510-6002-AR \\
+Pinheader 6pol & 3 pol & Connector & 2 & 855-M20-9730345 \\
+3,3V Z-Diode Fast 0,5W & DO35 & Diode & 2 & 78-BZX55B3V3 \\
+1N4148 & MINIMELF & Diode & 22 & 78-LL4148 \\
+74HC154 & SO24W & IC & 1 & 771-74HC4515D \\
+ATMega16 & DIL-40 & IC & 1 & 556-ATMEGA16A-PU \\
+10uH & SMC & Inductivity & 1 & 434-23-100 \\
+LED yellow & 1206 & Led & 1 & 696-SML-LX1206YC \\
+16Mhz & HC18U-V & Quarz & 1 & 815-ABL-16-B2 \\
+2k2 & 805 & Resistor & 1 & 652-CR0805FX-2201ELF \\
+220R & 805 & Resistor & 1 & 652-CR0805FX-2200ELF \\
+4k7 & 805 & Resistor & 1 & 652-CR0805FX-4701ELF \\
+820R & 1/4W & Resistor & 1 & 291-820-RC \\
+82R & 805 & Resistor & 2 & 652-CR0805FX-82R0ELF \\
+8k2 & 805 & Resistor & 1 & 652-CR0805FX-8201ELF \\
+150R & 805 & Resistor & 4 & 652-CR0805FX-1500ELF \\
+IC-Sockel (opt.) & 40pol & Sockel & 1 & 517-4840-6000-CP \\
+BC327 & TO-92 & Transistor & 1 & 512-BC32740BU \\
+BC337 & TO-92 & Transistor & 1 & 512-BC33740BU \\
+\hline
+\caption {UHF Control Board RP}
+\end {longtable}
+
+% ---------------------------------------------------------------- other partlist
+\subsection{Additional Components}
+\begin{longtable}{ *{5}{| l } | }
+\hline
+\textbf{Article} & \textbf{Value} & \textbf{Type} & \textbf{\#} & \textbf{Mouser order number} \\
+\hline
+\endhead
+ATMega8 & DIL-28 & IC & 1 & 556-ATMEGA8A-PU \\
+Flat wire cable connector & AWG28 & Wire & 1 & 517-2M-BDBD-016-12 \\
+Jumper wire & 2pol & Wire & 1 &  \\
+7-Segment LED Com. Anode & RM2.54 & LED & 8 & 630-HDSP-7801-JK000 \\
+Black wire 0.14mm² &  & Wire &  &  \\
+Socket 8pol & RM2.54 & Connector & 8 &  \\
+Prototype Board 160x100 & RM2.54 & PCB & 1 &  \\
+Socket 5pol 5mm height & RM2.54 & Connector & 16 &  \\
+\hline
+\caption {Additional components}
+\end {longtable}
+
+% ----------------------------------------------------------------  ASSEMBLY ---------------------------------------------------------------- 
+\chapter{Assembly}
+% ---------------------------------------------------------------- wiring
+\section{Wiring the 7-segment LED \emph{HDSP-7801-JK000}}
+
+In case you use the 7-Segment LED Avago \emph{HDSP-7801-JK000}, you can use the following table to wire the devices.
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{ *{3}{| l } | }
+\hline
+\textbf{UHF Indication Board Pin} & \textbf{Segment} & \textbf{HDSP-7801-JK000 Pin} \\
+\hline
+1 (lilac) & a & 10 \\
+\hline
+2 (blue) & b & 9 \\
+\hline
+3 (green) & c & 8 \\
+\hline
+4 (yellow) & d & 5 \\
+\hline
+5 (orange) & e & 4 \\
+\hline
+6 (red) & f & 2 \\
+\hline
+7 (brown) & g & 3 \\
+\hline
+8 (black) & DP & 7 \\
+\hline
+Common Anode &   & 6 \&{} 1 \\
+\hline
+\end{tabular}
+\caption {Wiring}
+\end {table}
+\label{Table4}
+
+\begin{figure}[h!tb]
+\centering
+\includegraphics[scale=0.7]{images/7segPins.jpg}
+\caption{7-Segment LED layout}
+\end{figure}
+
+There are ready made connectors\footnote{\parbox{105mm}{\href{http://www.reichelt.de/Platinen-Steckverbinder/PS-25-8G-WS/3//index.html?ACTION=3\&GROUPID=5216\&ARTICLE=14831\&SHOW=1\&START=0\&OFFSET=500\&}{reichelt.de PS-25-8G-WS}}} available that use colored wires. These match the colors given for the UHF Indication Board Pin in Table \ref{Table4}. 
+
+Connect all Common Anode pins to a common (preferably red) wire.
+
+The LEDs should be soldered to small prototype boards that fit into the tiny space of the UHF panel. Sockets do not provide reliable contact.
+Mount the 7-Segment LED Board to the UHF ARC-164 Panel. M2.5 screws fit through the UHF panel holes.
+
+% ---------------------------------------------------------------- Board assembly
+\section{Assembly of UHF Control Board and UHF Indication Board}
+\emph{TODO}
+
+\emph{
+Note: \\ The preferred  way to mount the boards would be in a 90 degree angle to the UHF panel. This allows use of short wires for all connections. A casing, like the real panel could be build to mount the boards with spacers to the sidewalls.
+}
+
+% ---------------------------------------------------------------- CONNECTIONS ---------------------------------------------------------------- 
+\chapter{Connections}
+% ---------------------------------------------------------------- 
+\section{If you have only the UHF Indication Board}
+\begin{enumerate}
+\item
+Connect the UHF Indication Board with the 5V Powersupply. The polarity is printed on the PCB.
+\item
+Connect the 7-Segment LED Board to the UHF Indication Board.
+\end{enumerate}•
+
+
+\begin{figure}[h!tb]
+\centering
+\includegraphics[scale=2]{images/pin1.jpg}
+\caption{Pin 1}
+\end{figure}
+
+The UHF Indication Board Pin 1 is at the same position for all connectors.
+The common anode wire is connected to the power plug labeled "PWM".
+
+The 7-seg. LEDs are assigned as shown in figure \ref{fig:ledConn}
+\begin{figure}[h!]
+\centering
+\includegraphics{images/led_connection.jpg}
+\caption{PCB to Display Connection}
+\label{fig:ledConn}
+\end{figure}
+
+% ---------------------------------------------------------------- 
+\section{If you have both the UHF Indication Board and the UHF Control Board}
+
+\begin{enumerate}
+\item
+Do the connections for the UHF Indication Board as instructed in the previous chapter.
+\item
+Connect the Volume knob pinheader to a potentiometer with the 2pol wire cable. 
+
+\framebox[\textwidth]{
+\parbox{0.9\textwidth}{
+Note: \newline
+The UHF Control Board can use the Volume knob of the UHF ARC-164 Panel to adjust volume.
+Use the 2pol wire cable to connect the Volume knob pinheader to the audio volume pinheader of the UHF Control Board. (see figure \ref{fig:volPoti})
+}
+}
+
+\begin{figure}[h!t]
+\centering
+\includegraphics[scale=2]{images/volume_poti_connection.jpg}
+\caption{Volume Potentiometer Connection}
+\label{fig:volPoti}
+\end{figure}
+
+\item
+Connect the UHF Control Board to the UHF ARC-164 Panel. The wiring is 1:1 when the board faces the panel (see also labeling J1 and J2 on both board and panel).
+
+\begin{figure}[h!t]
+\centering
+\includegraphics[scale=2]{images/controlboard_connection.jpg}
+\caption{Control Board Connection}
+\label{fig:brdConn}
+\end{figure}
+
+\item
+Connect the UHF Indication Board and the UHF Control Board with the 10pol flat wire cable.
+
+\item
+Connect Headphones to the UHF Control Board.
+\item
+UHF panel backlight power supply
+The powersupply for the UHF Panel backlight is connected to the UHF Control Board (The Power Plug labelled "Backlight" in figure \ref{fig:volPoti}).
+
+\item
+UHF Control Board power supply, USB not connected
+The power plug "Power Supply" for the UHF Control Board (see figure \ref{fig:volPoti}) should be left unconnected. The board receives its power through the UHF Indication Board.
+
+\framebox[\textwidth]{
+\parbox{0.9\textwidth}{\large\color{red}
+\textsc{Warning:}\newline
+Do \textsc{not} connect the UHF Control Board to the USB port for power supply!
+Always connect the UHF Indication Board with a power supply!
+}
+}
+
+\item
+UHF Control Board power supply, USB connected
+Connect a standard USB-B cable to the UHF Control Board.
+The USB port provides power for the UHF Control Board, to avoid damaging your USB port, break the 1st wire of the 10pol flat wire cable. The power plug "Power supply" is for debugging purposes only.
+
+\end{enumerate}•
+
+% ---------------------------------------------------------------- TTL 
+\section{If you have a TTL USART device}
+Both boards have a serial interface operating on TTL voltage. The transmit pin is labeled "T", The receive pin is labeled "R" and the ground pin is labeld "G". Connect a RS232-TTL or USB-TTL converter for accessing terminal operations. The baud rate is 38400.
+
+% ---------------------------------------------------------------- OPERATION ----------------------------------------------------------------
+\chapter{Operation}
+% ---------------------------------------------------------------- Switch on
+\section{Power On}
+The LEDs should display a test pattern for about a second, then show a channel number and a frequency.
+The status LED on the UHF Indication Board should be briefly on.
+The UHF Indication Board has a potentiometer to adjust brightness. Adjust as preferred.
+
+% ---------------------------------------------------------------- usage
+\section {Usage}
+The operation of the UHF radio is documented in this PDF file.
+
+\href{http://mayprinting.com/TSB/data/comm/arc-164.pdf}{http://mayprinting.com/TSB/data/comm/arc-164.pdf}\footnote{This link does not work anymore.}
+
+\noindent
+The TSS/RSG frequency is 310.425. Use this frequency to get a Tone.
+
+
+% ---------------------------------------------------------------- USB
+\section{USB Keyboard}
+The UHF Control Board operates as a USB keyboard.
+
+The Squelch switch in position ON suppresses sending keystrokes, so make sure it is in the correct position.
+
+A prototype USB vendor and product ID are used, so use at your own risk!
+The following switches send key strokes
+
+\begin{longtable}{ *{2}{| l } | }
+\hline
+\textbf{Operator} & \textbf{Key} \\
+\hline
+\endhead
+Mode Selector OFF & SHF ALT ENTER \\
+Mode Selector MAIN & ALT CTRL ENTER \\
+Mode Selector BOTH & SHF ALT CTRL ENTER \\
+Mode Selector ADF & SHF CTRL Z \\
+MPG MNL & SHF ALT CTRL X \\
+MPG PRESET & SHF CTRL C \\
+MPG GRD & SHF ALT C \\
+CHAN INC & SHF ALT S \\
+CHAN DEC & ALT CTRL S \\
+FREQ 1 2 & SHF ALT D \\
+FREQ 1 3 & ALT CTRL D \\
+FREQ 1 A & SHF CTRL D \\
+FREQ 2 0 & SHF ALT CTRL D \\
+FREQ 2 1 & SHF CTRL F \\
+FREQ 2 2 & SHF ALT F \\
+FREQ 2 3 & ALT CTRL F \\
+FREQ 2 4 & SHF ALT CTRL M \\
+FREQ 2 5 & SHF CTRL G \\
+FREQ 2 6 & SHF ALT G \\
+FREQ 2 7 & ALT CTRL G \\
+FREQ 2 8 & SHF ALT CTRL G \\
+FREQ 2 9 & SHF CTRL H \\ 
+FREQ 3 0 & SHF ALT H \\
+FREQ 3 1 & ALT CTRL H \\
+FREQ 3 2 & SHF ALT CTRL H \\
+FREQ 3 3 & SHF CTRL J \\
+FREQ 3 4 & SHF ALT J \\
+FREQ 3 5 & ALT CTRL J \\
+FREQ 3 6 & SHF ALT CTRL J \\
+FREQ 3 7 & SHF CTRL K \\
+FREQ 3 8 & SHF ALT K \\ 
+FREQ 3 9 & ALT CTRL K \\
+FREQ 4 0 & SHF ALT CTRL K \\
+FREQ 4 1 & SHF CTRL L \\
+FREQ 4 2 & SHF ALT L \\
+FREQ 4 3 & ALT CTRL L \\
+FREQ 4 4 & SHF ALT CTRL L \\
+FREQ 4 5 & SHF CTRL ; \\
+FREQ 4 6 & SHF ALT ; \\
+FREQ 4 7 & ALT CTRL ; \\
+FREQ 4 8 & SHF ALT CTRL ; \\
+FREQ 4 9 & SHF CTRL ' \\
+FREQ 5 00 & SHF ALT ' \\
+FREQ 5 25 & ALT CTRL ` \\
+FREQ 5 50 & SHF ALT CTRL ` \\
+FREQ 5 75 & SHF CTRL ENTER \\
+\hline
+\caption {Key Assignment}
+\end {longtable}
+\begin{comment}
+These are not supported yet in source code and Falcon BMS
+LOAD & SHF CTRL S \\
+STATUS & SHF ALT CTRL S \\
+Zero On & ALT CTRL A \\
+Zero Off & SHF ALT CTRL A \\
+Squelch On & SHF ALT X \\
+Squelch Off & ALT CTRL X \\
+Tone T & SHF ALT Z \\
+Tone TONE & ALT CTRL Z \\
+CH Vol Inc & SHF ALT CTRL Z \\
+CH Vol Dec & SHF CTRL X \\
+TEST & SHF ALT . \\
+\end{comment}
+
+% ---------------------------------------------------------------- shared  mem
+\section {Connecting to Falcon BMS Shared Memory}
+
+With firmware version 23 an newer (see chapter Operation on how to check the version), the UHF radio supports synchronising with the shared memory. A shared memory reader is required to establish the data transfer and is available at github\footnote{github.com/Wolfman-F16/uhfRadioUsbSharedMemReader}. 
+To allow data transfer to a USB Keyboard (that is what the UHF radio basically is for a Windows OS), installation of a filter is required. 
+The software to do so is available at \href{http://sourceforge.net/projects/libusb-win32/}{libusb-win32}.
+Type \begin{quote}\emph{install-filter install –device=USBVid\_16c0.Pid\_27db.Rev\_0100} \end{quote} on the commandline. Or use the \emph{install-filter-gui.exe} to do the same. This must be done only a single time.
+Start the commandline tool \emph{uhfRadio.exe} and data will be sent, once the shared memory is available.
+
+\framebox[\textwidth]{
+\parbox{0.9\textwidth}{
+Note: \newline
+Before ramp start, set the UHF radio rotary switches to channel 6 and frequency 225.000
+}
+}
+
+\framebox[\textwidth]{
+\parbox{0.9\textwidth}{
+Note: \newline
+During Falcon BMS ramp/taxi/takeoff loading screen, the channel and frequency often show wierd numbers for a brief time.
+}
+}
+
+\framebox[\textwidth]{
+\parbox{0.9\textwidth}{
+Note: \newline
+If channel or frequency is out of sync, use the squelch switch to suppress sending key strokes.
+}
+}
+
+% ---------------------------------------------------------------- MAINTENANCE ----------------------------------------------------------------
+\chapter{Maintenance}
+% ---------------------------------------------------------------- Firmware
+\section{Firmware Version}
+The software version of the UHF Control Board can be displayed by switching to ADF and switching the T-Tone switch to T.
+
+The current firmware version as of writing this document is v28.
+
+\section{Firmware Update}
+The UHF Control Board supports firmware update via USB. Before being able to use the USB firmware update, the USB bootloader\footnote{\href{}{github.com/Wolfman-F16/usbBootloader}} has to be flashed onto the UHF Control Board microcontroller.
+To put the UHF Control Board in USB bootloader mode, 
+\begin{enumerate}
+\item
+disconnect the UHF radio from power (incl. USB)
+\item
+ switch to ADF
+ \item
+ power up the UHF radio again.
+\end{enumerate}•
+Use the commandline tool \emph{avrusbboot.exe}\footnote{\href{}{github.com/Wolfman-F16/usbBootloaderCommander}} to upload the new firmware.
+When the firmware upload is complete, put the UHF radio in normal operating mode by
+\begin{enumerate}
+\item
+ disconnect the UHF radio from power (incl. USB)
+ \item
+switch to UHF OFF
+\item
+power up the UHF radio again.
+\end{enumerate}•
+
+% ---------------------------------------------------------------- Known Issues
+\section{Known Issues}
+\begin{itemize}
+\item[]
+TOD update and initiation of individual TOD not implemented, because there is no other radio that can be queried for a valid Tone signal (see also arc-164.pdf: 4-20 to 4-22).
+\item[]
+The FMT CHG text is not displayed after 5 seconds of inactivity in FMT.CHG mode.
+\item[]
+No interface to Falcon 4.0, Falcon 4 Allied Force or OpenFalcon4.7 is implemented, because non of them support UHF ARC-164 radio operations. 
+However, Falcon BMS 4.32 provides limited support of UHF ARC-164 radio operations, extraction of display data is supported since Falcon BMS 4.33.
+\item[]
+The UHF panel volume knob cannot be used to control anything in Falcon BMS.
+\item[]
+The UHF Indication Board, when operated stand alone, might always show the LED test. Connect 5V to the pin SS (6) to solve this.
+\item[]
+If you think you found an error in this document or the software, please post at this forum thread
+\href{http://www.viperpits.org/smf/index.php?topic=5082.0}{viperpits.org UHF electronics}
+But remember the RTFM rule, so you might want to check the \emph{arc164.pdf} file thoroughly first.
+\end{itemize}•
+
+
+\tableofcontents
+
+
+\end{document}
