@@ -8,7 +8,10 @@
  *  fixed redundant key definitions
  *  matched key definitions with BMS 4.34 Pitbuilder QWERTY layout (BMS Full Layout w Placeholders (US Int))
  *
- * Copyright: (c) 2011 by Wolfgang Engelhard
+ * Update 07. Mar 2021:
+ *  matched key definitions with BMS 4.35 U1 Pitbuilder QWERTY layout (BMS Full Layout w Placeholders (US Int))
+ *
+ * Copyright: (c) 2021 by Wolfgang Engelhard
  * License: GNU GPL v2 (see License.txt)
  */
 
@@ -38,7 +41,7 @@ static const uint8_t    keyReport[NUM_KEYS +1][2] PROGMEM = {
 /*  14 */ {MOD_SHIFT_LEFT | MOD_CTRL_LEFT               , KEY_F},       //+ Freq 2 1
 /*  15 */ {MOD_SHIFT_LEFT | MOD_ALT_LEFT                , KEY_F},       //+ Freq 2 2
 /*  16 */ {MOD_ALT_LEFT | MOD_CTRL_LEFT                 , KEY_F},       //+ Freq 2 3
-/*  17 */ {MOD_SHIFT_LEFT | MOD_ALT_LEFT | MOD_CTRL_LEFT, KEY_F},       //+ Freq 2 4
+/*  17 */ {MOD_SHIFT_LEFT | MOD_ALT_LEFT | MOD_CTRL_LEFT, KEY_M},       //+ Freq 2 4
 /*  18 */ {MOD_SHIFT_LEFT | MOD_CTRL_LEFT               , KEY_G},       //+ Freq 2 5
 /*  19 */ {MOD_SHIFT_LEFT | MOD_ALT_LEFT                , KEY_G},       //+ Freq 2 6
 /*  20 */ {MOD_ALT_LEFT | MOD_CTRL_LEFT                 , KEY_G},       //+ Freq 2 7

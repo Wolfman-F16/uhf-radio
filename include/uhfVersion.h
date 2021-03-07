@@ -12,6 +12,6 @@
 #define UHFVERSION_H_
 
 const uint8_t chVersion[] = "R-";
-const uint8_t freqVersion[] = "000026";
+const uint8_t freqVersion[] = "000028";
 
 #endif /* UHFVERSION_H_ */
